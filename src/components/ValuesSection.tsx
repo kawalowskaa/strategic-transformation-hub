@@ -11,9 +11,7 @@ const ValuesSection = () => {
         <p className="text-sm tracking-[0.2em] uppercase text-muted-foreground mb-4">
           {t.tag}
         </p>
-        <h2 className="text-3xl md:text-4xl font-display mb-16 text-foreground whitespace-pre-line">
-          {t.heading}
-        </h2>
+      
         <div className="space-y-8">
           {t.items.map((value, i) => (
             <div key={i} className="flex gap-6 items-start group">
