@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-
-const links = [
-  { label: "Co robię", href: "#co-robie" },
-  { label: "Podejście", href: "#jak-mysle" },
-  { label: "Kontakt", href: "#kontakt" },
-];
+import { useLang } from "@/i18n/LanguageContext";
+import { translations } from "@/i18n/translations";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { lang, toggle } = useLang();
+  const t = translations.nav[lang];
+
+  const links = [
+    { label: t.what, href: "#co-robie" },
+    { label: t.approach, href: "#jak-mysle" },
+    { label: t.contact, href: "#kontakt" },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -26,14 +30,28 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+          <button
+            onClick={toggle}
+            className="text-xs tracking-widest uppercase border border-border px-3 py-1.5 text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
+          >
+            {lang === "pl" ? "EN" : "PL"}
+          </button>
         </div>
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setOpen(!open)}
-          aria-label="Menu"
-        >
-          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          <button
+            onClick={toggle}
+            className="text-xs tracking-widest uppercase border border-border px-3 py-1.5 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {lang === "pl" ? "EN" : "PL"}
+          </button>
+          <button
+            className="text-foreground"
+            onClick={() => setOpen(!open)}
+            aria-label="Menu"
+          >
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
       {open && (
         <div className="md:hidden bg-background border-b border-border px-6 py-6 space-y-4">
